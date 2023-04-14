@@ -21,6 +21,13 @@ class Image:
     def get_height(self):
         return self.height
 
+    def center(self, x=None, y=None):
+        if x is None:
+            x = self.x
+        if y is None:
+            y = self.y
+        self.set_position(x - self.width / 2, y - self.height / 2)
+
     def set_position(self, x, y):
         self.x = x
         self.y = y

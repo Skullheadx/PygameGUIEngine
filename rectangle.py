@@ -43,6 +43,13 @@ class Rectangle:
     def collidepoint(self, point):
         return self.x <= point[0] <= self.x + self.width and self.y <= point[1] <= self.y + self.height
 
+    def center(self, x=None, y=None):
+        if x is None:
+            x = self.x
+        if y is None:
+            y = self.y
+        self.set_position(x - self.width / 2, y - self.height / 2)
+
     def draw(self, screen):
         pygame.draw.rect(screen, self.background_color, (self.x, self.y, self.width, self.height),
                          border_radius=self.border_radius)

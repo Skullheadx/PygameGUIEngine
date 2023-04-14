@@ -7,7 +7,8 @@ class Slider:
     slider_thickness = 4
 
     def __init__(self, x, y, width, height, min_val=0, max_val=100, default=0, background_color=Color.WHITE,
-                 slider_color=Color.BLACK, border_color=Color.BLACK, border_width=1, border_radius=0, padding=15):
+                 slider_color=Color.BLACK, border_color=Color.BLACK, border_width=1, border_radius=0, padding=15,
+                 darken=True):
         self.x = x
         self.y = y
         self.background_color = background_color
@@ -30,8 +31,12 @@ class Slider:
         self.is_pressed = False
         self.is_clicked = False
 
-        self.hover_color = Color.darken(self.background_color, 20)
-        self.pressed_color = Color.darken(self.background_color, 40)
+        if darken:
+            self.hover_color = Color.darken(self.background_color, 20)
+            self.pressed_color = Color.darken(self.background_color, 40)
+        else:
+            self.hover_color = Color.lighten(self.background_color, 20)
+            self.pressed_color = Color.lighten(self.background_color, 40)
 
         self.last_click = 0
         self.still_pressed = False

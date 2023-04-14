@@ -38,6 +38,13 @@ class VBoxContainer:
     def get_child_index(self, child):
         return self.children.index(child)
 
+    def center(self, x=None, y=None):
+        if x is None:
+            x = self.x
+        if y is None:
+            y = self.y
+        self.set_position(x - (self.width - 2 * self.padding) // 2, y - (self.height - 2 * self.padding) // 2)
+
     def set_position(self, x, y):
         self.x = x
         self.y = y
@@ -48,7 +55,7 @@ class VBoxContainer:
         child_y = self.y
         for i, child in enumerate(self.children):
             child_position_x = self.x + (
-                    self.width - 2 * self.padding - child.get_width()) // 2 if self.centered else self.x
+                    self.get_width() - 2 * self.padding - child.get_width()) // 2 if self.centered else self.x
             child_position_y = child_y
             if hasattr(child, 'padding'):
                 child_position_x += child.padding
@@ -56,6 +63,7 @@ class VBoxContainer:
 
             child.set_position(child_position_x, child_position_y)
             child_y += child.get_height() + self.separation_distance
+        self.rect.set_size(self.get_width(), self.get_height())
 
     def update(self):
         for child in self.children:
@@ -64,10 +72,13 @@ class VBoxContainer:
         self.update_children_position()
 
     def get_width(self):
-        return self.width
+        if self.get_child_count() == 0:
+            return 0
+        return max([child.get_width() for child in self.children]) + self.padding * 2
 
     def get_height(self):
-        return self.height
+        return sum([child.get_height() for child in self.children]) + self.padding * 2 + (
+                self.get_child_count() - 1) * self.separation_distance
 
     def move(self, dx, dy):
         self.x += dx
@@ -138,6 +149,13 @@ class HBoxContainer:
     def get_child_index(self, child):
         return self.children.index(child)
 
+    def center(self, x=None, y=None):
+        if x is None:
+            x = self.x
+        if y is None:
+            y = self.y
+        self.set_position(x - (self.width - 2 * self.padding) // 2, y - (self.height - 2 * self.padding) // 2)
+
     def set_position(self, x, y):
         self.x = x
         self.y = y
@@ -149,7 +167,7 @@ class HBoxContainer:
         for i, child in enumerate(self.children):
             child_position_x = child_x
             child_position_y = self.y + (
-                    self.height - 2 * self.padding - child.get_height()) // 2 if self.centered else self.x
+                    self.get_height() - 2 * self.padding - child.get_height()) // 2 if self.centered else self.x
 
             if hasattr(child, 'padding'):
                 child_position_x += child.padding
@@ -157,17 +175,22 @@ class HBoxContainer:
 
             child.set_position(child_position_x, child_position_y)
             child_x += child.get_width() + self.separation_distance
+        self.rect.set_size(self.get_width(), self.get_height())
 
     def update(self):
         for child in self.children:
             if hasattr(child, 'update'):
                 child.update()
+        self.update_children_position()
 
     def get_width(self):
-        return self.width
+        return sum([child.get_width() for child in self.children]) + self.padding * 2 + (
+                self.get_child_count() - 1) * self.separation_distance
 
     def get_height(self):
-        return self.height
+        if self.get_child_count() == 0:
+            return 0
+        return max([child.get_height() for child in self.children]) + self.padding * 2
 
     def move(self, dx, dy):
         self.x += dx
@@ -248,22 +271,29 @@ class GridContainer:
                 return self.children.index(child)
         return -1
 
+    def center(self, x=None, y=None):
+        if x is None:
+            x = self.x
+        if y is None:
+            y = self.y
+        self.set_position(x - (self.width - 2 * self.grid.padding) // 2, y - (self.height - 2 * self.grid.padding) // 2)
+        self.grid.center(x, y)
+
     def set_position(self, x, y):
         self.x = x
         self.y = y
         self.grid.set_position(x, y)
 
     def update(self):
-        for row in self.children:
-            for child in row:
-                if hasattr(child, 'update'):
-                    child.update()
+        self.grid.update()
 
     def get_width(self):
-        return self.width
+        return sum([child.get_width() for child in self.children]) + self.grid.padding * 2 + (
+                self.get_child_count() - 1) * self.grid.separation_distance
 
     def get_height(self):
-        return self.height
+        return sum([child.get_height() for child in self.children]) + self.grid.padding * 2 + (
+                self.get_child_count() - 1) * self.grid.separation_distance
 
     def move(self, dx, dy):
         self.x += dx

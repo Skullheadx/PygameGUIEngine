@@ -7,7 +7,7 @@ class Button(Label):
     cooldown = 0.25  # seconds
 
     def __init__(self, x, y, text, font, size, text_color=Color.BLACK, background=Color.WHITE, border_color=Color.BLACK,
-                 border_width=1, border_radius=0, padding=10, func=None):
+                 border_width=1, border_radius=0, padding=10, darken=True, func=None):
         super().__init__(x, y, text, font, size, text_color, background, border_color, border_width, border_radius,
                          padding)
         self.is_hover = False
@@ -16,8 +16,12 @@ class Button(Label):
 
         self.func = func
 
-        self.hover_color = Color.darken(self.background_color, 20)
-        self.pressed_color = Color.darken(self.background_color, 40)
+        if darken:
+            self.hover_color = Color.darken(self.background_color, 20)
+            self.pressed_color = Color.darken(self.background_color, 40)
+        else:
+            self.hover_color = Color.lighten(self.background_color, 20)
+            self.pressed_color = Color.lighten(self.background_color, 40)
 
         self.last_click = 0
         self.still_pressed = False

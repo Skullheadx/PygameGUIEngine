@@ -45,6 +45,13 @@ class Text:
         self.text_color = text_color
         self.update_text()
 
+    def center(self, x=None, y=None):
+        if x is None:
+            x = self.x
+        if y is None:
+            y = self.y
+        self.set_position(x - self.text_surface.get_width() / 2, y - self.text_surface.get_height() / 2)
+
     def draw(self, screen):
         screen.blit(self.text_surface, (self.x, self.y))
 
