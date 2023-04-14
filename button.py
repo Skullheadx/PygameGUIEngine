@@ -4,7 +4,7 @@ from text import Label
 
 
 class Button(Label):
-    cooldown = 1  # seconds
+    cooldown = 0.25  # seconds
 
     def __init__(self, x, y, text, font, size, text_color=Color.BLACK, background=Color.WHITE, border_color=Color.BLACK,
                  border_width=1, border_radius=0, padding=10, func=None):
@@ -34,6 +34,10 @@ class Button(Label):
             if not mouse_pressed:
                 self.click_disabled = False
             else:
+                if self.is_hover:
+                    self.rect.set_background_color(self.hover_color)
+                else:
+                    self.rect.set_background_color(self.background_color)
                 return
         self.is_clicked = self.is_hover and not mouse_pressed and self.is_pressed
         self.is_pressed = self.is_hover and mouse_pressed
