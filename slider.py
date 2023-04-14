@@ -5,6 +5,7 @@ from rectangle import Rectangle
 
 class Slider:
     slider_thickness = 4
+
     def __init__(self, x, y, width, height, min_val=0, max_val=100, default=0, background_color=Color.WHITE,
                  slider_color=Color.BLACK, border_color=Color.BLACK, border_width=1, border_radius=0, padding=15):
         self.x = x
@@ -97,5 +98,6 @@ class Slider:
         pygame.draw.line(screen, self.border_color, (self.x, self.y + (self.height - 2 * self.padding) // 2),
                          (self.x + self.width - 2 * self.padding, self.y + (self.height - 2 * self.padding) // 2), 3)
         pygame.draw.rect(screen, self.slider_color,
-                         (self.x + (self.width - 2 * self.padding) * (self.value - self.min_value) / (self.max_value - self.min_value) - self.slider_thickness//2,
+                         (self.x + (self.width - 2 * self.padding) * (self.value - self.min_value) / (
+                                     self.max_value - self.min_value) - self.slider_thickness // 2,
                           self.y, self.slider_thickness, self.height - 2 * self.padding))

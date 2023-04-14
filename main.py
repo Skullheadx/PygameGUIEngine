@@ -7,7 +7,6 @@ from container import VBoxContainer, HBoxContainer, GridContainer
 from image import Image
 from slider import Slider
 
-
 pygame.init()
 
 screen = pygame.display.set_mode((640, 480))
@@ -17,7 +16,7 @@ delta = 0
 
 a = Slider(100, 100, 100, 20, 0, 100, 50, Color.LIGHT_GRAY, Color.DARK_GRAY, 4, 5, 10)
 b = Text(100, 100, "Slider", "Arial", 20, Color.BLACK)
-c = VBoxContainer(100, 100, Color.LIGHT_GRAY, Color.DARK_GRAY, 4, 5, 10, 0, True,[b,a])
+c = VBoxContainer(100, 100, Color.LIGHT_GRAY, Color.DARK_GRAY, 4, 5, 10, 0, True, [b, a])
 
 is_running = True
 while is_running:
