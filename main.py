@@ -1,7 +1,7 @@
 import pygame
 from color import Color
 from rectangle import Rectangle
-from text import Text
+from text import Text, Label
 
 pygame.init()
 
@@ -12,7 +12,7 @@ delta = 0
 
 # Testing Text
 a = Text(100, 100, "Hello World", "Arial", 20, color=Color.RED)
-b = Text(100, 200, "Word hunt", "Imprint Shadow", 20)
+b = Label(100, 200, "Word hunt", "Imprint Shadow", 20, Color.RED, Color.BLACK, Color.BLACK, 1, 15)
 c = Rectangle(100, 300, 100, 100, (255, 0, 0))
 
 is_running = True
