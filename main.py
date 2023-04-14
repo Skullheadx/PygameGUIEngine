@@ -3,7 +3,7 @@ from color import Color
 from rectangle import Rectangle
 from text import Text, Label
 from button import Button
-from container import Container
+from container import VBoxContainer, HBoxContainer
 from image import Image
 
 
@@ -22,11 +22,12 @@ d = Button(100, 200, "Play", "Imprint Shadow", 40, Color.BLUE, Color.BLACK, Colo
            lambda: print("Hello World"))
 e = Button(100, 300, "Quit", "Imprint Shadow", 40, Color.BLUE, Color.BLACK, Color.BLACK, 1, 15, 20,
            lambda: print("Goodbye World"))
-f = Container(400, 100, Color.WHITE, Color.BLACK, 1, 15, 20, 50, True, [d, e])
+f = HBoxContainer(400, 25, Color.WHITE, Color.BLACK, 1, 15, 20, 10, True, [d, e])
 f.add_child(a)
 
-g = Image(0, -400, "image.PNG", Color.BLACK, 1)
-g.resize(600, 400)
+g = Image(0, 0, "image.PNG", Color.BLACK, 5)
+g.resize(200, 200)
+f.add_child(c)
 
 is_running = True
 while is_running:
@@ -38,7 +39,7 @@ while is_running:
 
     a.draw(screen)
     b.move(delta * 10, delta * 10)
-    b.set_text("Word hunt " + str(round(clock.get_fps())) + " FPS")
+    b.set_text(str(round(clock.get_fps())) + " FPS")
     b.draw(screen)
     c.draw(screen)
 
@@ -49,10 +50,10 @@ while is_running:
     e.draw(screen)
 
     f.update()
-    f.move(delta * -10, 0)
+    f.move(delta * -40, 0)
     f.draw(screen)
 
-    g.move(0, delta * 50)
+    g.move(0, delta * 25)
     g.draw(screen)
 
     pygame.display.update()
