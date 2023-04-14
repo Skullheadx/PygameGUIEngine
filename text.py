@@ -65,6 +65,12 @@ class Label(Text):
         self.rect = Rectangle(self.x - self.padding, self.y - self.padding, self.width, self.height,
                               self.background_color, self.border_color, self.border_width, self.border_radius)
 
+    def get_width(self):
+        return self.text_surface.get_width() + self.padding * 2
+
+    def get_height(self):
+        return self.text_surface.get_height() + self.padding * 2
+
     def set_position(self, x, y):
         super().set_position(x, y)
         self.rect.set_position(self.x - self.padding, self.y - self.padding)

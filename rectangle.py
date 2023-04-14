@@ -16,6 +16,12 @@ class Rectangle:
         self.border_width = border_width
         self.border_radius = border_radius
 
+    def get_width(self):
+        return self.width
+
+    def get_height(self):
+        return self.height
+
     def set_position(self, x, y):
         self.x = x
         self.y = y
