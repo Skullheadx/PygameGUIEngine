@@ -34,6 +34,9 @@ class Rectangle:
     def set_border_color(self, border_color):
         self.border_color = border_color
 
+    def collidepoint(self, point):
+        return self.x <= point[0] <= self.x + self.width and self.y <= point[1] <= self.y + self.height
+
     def draw(self, screen):
         pygame.draw.rect(screen, self.background_color, (self.x, self.y, self.width, self.height),
                          border_radius=self.border_radius)
