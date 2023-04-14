@@ -1,5 +1,7 @@
 import pygame
+from color import Color
 from rectangle import Rectangle
+from text import Text
 
 pygame.init()
 
@@ -8,10 +10,10 @@ pygame.display.set_caption("My Game")
 clock = pygame.time.Clock()
 delta = 0
 
-# Testing Rectangle
-r = Rectangle(100, 100, 100, 100, (255, 0, 0))
-r2 = Rectangle(200, 200, 100, 100, (0, 255, 0), (0, 0, 255), 5, 10)
-r3 = Rectangle(300, 300, 100, 100, (0, 0, 255), (255, 0, 0), 5, 10)
+# Testing Text
+a = Text(100, 100, "Hello World", "Arial", 20, color=Color.RED)
+b = Text(100, 200, "Word hunt", "Imprint Shadow", 20)
+c = Rectangle(100, 300, 100, 100, (255, 0, 0))
 
 is_running = True
 while is_running:
@@ -21,10 +23,11 @@ while is_running:
 
     screen.fill((255, 255, 255))
 
-    r.draw(screen)
-    r2.draw(screen)
-    r3.move(delta * 10, delta * 10)
-    r3.draw(screen)
+    a.draw(screen)
+    b.move(delta * 10, delta * 10)
+    b.set_text("Word hunt " + str(round(clock.get_fps())) + " FPS")
+    b.draw(screen)
+    c.draw(screen)
 
     pygame.display.update()
     delta = clock.tick(60) / 1000  # Seconds since last frame
