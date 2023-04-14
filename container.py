@@ -61,6 +61,7 @@ class VBoxContainer:
         for child in self.children:
             if hasattr(child, 'update'):
                 child.update()
+        self.update_children_position()
 
     def get_width(self):
         return self.width
