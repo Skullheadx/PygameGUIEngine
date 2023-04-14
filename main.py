@@ -4,6 +4,8 @@ from rectangle import Rectangle
 from text import Text, Label
 from button import Button
 from container import Container
+from image import Image
+
 
 pygame.init()
 
@@ -22,6 +24,10 @@ e = Button(100, 300, "Quit", "Imprint Shadow", 40, Color.BLUE, Color.BLACK, Colo
            lambda: print("Goodbye World"))
 f = Container(400, 100, Color.WHITE, Color.BLACK, 1, 15, 20, 50, True, [d, e])
 f.add_child(a)
+
+g = Image(0, -400, "image.PNG", Color.BLACK, 1)
+g.resize(600, 400)
+
 is_running = True
 while is_running:
     for event in pygame.event.get():
@@ -45,6 +51,9 @@ while is_running:
     f.update()
     f.move(delta * -10, 0)
     f.draw(screen)
+
+    g.move(0, delta * 50)
+    g.draw(screen)
 
     pygame.display.update()
     delta = clock.tick(60) / 1000  # Seconds since last frame
